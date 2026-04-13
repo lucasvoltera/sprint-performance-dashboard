@@ -14,30 +14,44 @@ def setup_page():
     
     st.markdown("""
         <style>
-        header[data-testid="stHeader"] {
-            display: none !important; /* Esconde o logo, menu e botão de deploy */
-        }
-        footer {
-            display: none !important; /* Esconde o 'Made with Streamlit' no rodapé */
-        }
-        div[data-testid="stToolbar"] {
-            display: none !important; /* Esconde botões flutuantes extras */
+        /* 1. ESCONDE A INTERFACE PADRÃO DO STREAMLIT NA TELA (Força Bruta) */
+        
+        [data-testid="stHeader"] {
+            display: none !important;
+            visibility: hidden !important;
         }
         
-        /* Ajusta o espaço vazio que fica no topo quando tiramos o cabeçalho */
+        [data-testid="stDecoration"] {
+            display: none !important;
+        }
+        
+        [data-testid="stToolbar"], .stAppToolbar {
+            display: none !important;
+            visibility: hidden !important;
+        }
+        
+        [data-testid="stStatusWidget"] {
+            display: none !important;
+        }
+        
+        footer, [data-testid="stFooter"] {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
         .block-container {
             padding-top: 2rem !important; 
+            margin-top: 0 !important;
         }
 
         @media print {
             html, body, .stApp { height: auto !important; overflow: visible !important; background-color: white !important; }
             .block-container, div[data-testid="stMainBlockContainer"] { overflow: visible !important; height: auto !important; max-width: 100% !important; padding-top: 0 !important; }
-            [data-testid="stSidebar"], button, .stSlider, .stSelectbox, .stRadio { display: none !important; } /* Esconde os filtros na hora da foto */
+            [data-testid="stSidebar"], button, .stSlider, .stSelectbox, .stRadio { display: none !important; } 
             .js-plotly-plot { page-break-inside: avoid !important; }
         }
         </style>
     """, unsafe_allow_html=True)
-
 def load_dashboard_data():
     """Tenta baixar e processar os dados, parando a tela em caso de erro."""
     try:
