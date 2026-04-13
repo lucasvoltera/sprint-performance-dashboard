@@ -7,6 +7,13 @@ from utils.data_processing import process_dataframe
 from views.team_view import render_team_tab
 from views.individual_view import render_individual_tab
 
+
+
+def setup_page():
+    """Configurações iniciais da página, remoção de logos e CSS de impressão."""
+    st.set_page_config(page_title="Sprint Analytics - Live", layout="wide")
+    st_autorefresh(interval=settings.REFRESH_INTERVAL, key="datarefresh")
+    
 st.markdown("""
         <style>
         [data-testid="stHeader"], [data-testid="stDecoration"], [data-testid="stToolbar"], .stAppToolbar, [data-testid="stStatusWidget"], footer, [data-testid="stFooter"] {
@@ -15,7 +22,7 @@ st.markdown("""
         }
         
         .block-container { padding-top: 2rem !important; margin-top: 0 !important; }
-           
+
         svg[viewBox="0 0 303 165"], svg[width="303"][height="165"] {
             display: none !important;
             visibility: hidden !important;
