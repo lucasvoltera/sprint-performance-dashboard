@@ -7,33 +7,35 @@ from utils.data_processing import process_dataframe
 from views.team_view import render_team_tab
 from views.individual_view import render_individual_tab
 
-def setup_page():
-    """Configurações iniciais da página, remoção de logos e CSS de impressão."""
-    st.set_page_config(page_title="Sprint Analytics - Live", layout="wide")
-    st_autorefresh(interval=settings.REFRESH_INTERVAL, key="datarefresh")
-    
-    st.markdown("""
-        <style>        
-        [data-testid="stHeader"] { display: none !important; }
-        [data-testid="stDecoration"] { display: none !important; }
-        [data-testid="stToolbar"], .stAppToolbar { display: none !important; }
-        [data-testid="stStatusWidget"] { display: none !important; }
-        footer, [data-testid="stFooter"] { display: none !important; }
+st.markdown("""
+        <style>
+        [data-testid="stHeader"], [data-testid="stDecoration"], [data-testid="stToolbar"], .stAppToolbar, [data-testid="stStatusWidget"], footer, [data-testid="stFooter"] {
+            display: none !important;
+            visibility: hidden !important;
+        }
+        
+        .block-container { padding-top: 2rem !important; margin-top: 0 !important; }
+           
+        svg[viewBox="0 0 303 165"], svg[width="303"][height="165"] {
+            display: none !important;
+            visibility: hidden !important;
+        }
 
-        [class*="viewerBadge"], 
-        [class*="_viewerBadge"],
-        a[href="https://streamlit.io/cloud"],
-        [data-testid="appCreatorAvatar"],
-        [class*="_profileContainer_"] {
+        img[alt="App Creator Avatar"], img[data-testid="appCreatorAvatar"] {
+            display: none !important;
+            visibility: hidden !important;
+        }
+
+        div[class^="_link_"], div[class*="_link_"],
+        div[class^="_profilePreview_"], div[class*="_profilePreview_"],
+        div[class^="_profileContainer_"], div[class*="_profileContainer_"],
+        [class*="_viewerBadge_"] {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
-        }
-
-        .block-container {
-            padding-top: 2rem !important; 
-            margin-top: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
         }
 
         @media print {
@@ -44,6 +46,7 @@ def setup_page():
         }
         </style>
     """, unsafe_allow_html=True)
+
     
 def load_dashboard_data():
     """Tenta baixar e processar os dados, parando a tela em caso de erro."""
