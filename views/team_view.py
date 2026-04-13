@@ -71,7 +71,3 @@ def _render_member_evolution(actual_df, analysis_columns, name_col):
     
     fig_multi_evolution = charts.create_evolution_chart(actual_df, name_col, analysis_columns)
     st.plotly_chart(fig_multi_evolution, use_container_width=True)
-
-    if st.toggle("Mostrar em tabela"):
-        display_df = actual_df[[name_col] + analysis_columns]
-        st.dataframe(display_df, hide_index=True, width='stretch')
