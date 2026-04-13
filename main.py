@@ -13,30 +13,22 @@ def setup_page():
     st_autorefresh(interval=settings.REFRESH_INTERVAL, key="datarefresh")
     
     st.markdown("""
-        <style>
-        /* 1. ESCONDE A INTERFACE PADRÃO DO STREAMLIT NA TELA (Força Bruta) */
-        
-        [data-testid="stHeader"] {
+        <style>        
+        [data-testid="stHeader"] { display: none !important; }
+        [data-testid="stDecoration"] { display: none !important; }
+        [data-testid="stToolbar"], .stAppToolbar { display: none !important; }
+        [data-testid="stStatusWidget"] { display: none !important; }
+        footer, [data-testid="stFooter"] { display: none !important; }
+
+        [class*="viewerBadge"], 
+        [class*="_viewerBadge"],
+        a[href="https://streamlit.io/cloud"],
+        [data-testid="appCreatorAvatar"],
+        [class*="_profileContainer_"] {
             display: none !important;
             visibility: hidden !important;
-        }
-        
-        [data-testid="stDecoration"] {
-            display: none !important;
-        }
-        
-        [data-testid="stToolbar"], .stAppToolbar {
-            display: none !important;
-            visibility: hidden !important;
-        }
-        
-        [data-testid="stStatusWidget"] {
-            display: none !important;
-        }
-        
-        footer, [data-testid="stFooter"] {
-            display: none !important;
-            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
         }
 
         .block-container {
@@ -52,6 +44,7 @@ def setup_page():
         }
         </style>
     """, unsafe_allow_html=True)
+    
 def load_dashboard_data():
     """Tenta baixar e processar os dados, parando a tela em caso de erro."""
     try:
