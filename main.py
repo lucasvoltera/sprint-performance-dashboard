@@ -8,15 +8,31 @@ from views.team_view import render_team_tab
 from views.individual_view import render_individual_tab
 
 def setup_page():
-    """Configurações iniciais da página e CSS de impressão."""
+    """Configurações iniciais da página, remoção de logos e CSS de impressão."""
     st.set_page_config(page_title="Sprint Analytics - Live", layout="wide")
     st_autorefresh(interval=settings.REFRESH_INTERVAL, key="datarefresh")
+    
     st.markdown("""
         <style>
+        header[data-testid="stHeader"] {
+            display: none !important; /* Esconde o logo, menu e botão de deploy */
+        }
+        footer {
+            display: none !important; /* Esconde o 'Made with Streamlit' no rodapé */
+        }
+        div[data-testid="stToolbar"] {
+            display: none !important; /* Esconde botões flutuantes extras */
+        }
+        
+        /* Ajusta o espaço vazio que fica no topo quando tiramos o cabeçalho */
+        .block-container {
+            padding-top: 2rem !important; 
+        }
+
         @media print {
             html, body, .stApp { height: auto !important; overflow: visible !important; background-color: white !important; }
             .block-container, div[data-testid="stMainBlockContainer"] { overflow: visible !important; height: auto !important; max-width: 100% !important; padding-top: 0 !important; }
-            [data-testid="stSidebar"], header[data-testid="stHeader"], button, .stSlider, .stSelectbox { display: none !important; }
+            [data-testid="stSidebar"], button, .stSlider, .stSelectbox, .stRadio { display: none !important; } /* Esconde os filtros na hora da foto */
             .js-plotly-plot { page-break-inside: avoid !important; }
         }
         </style>
